@@ -13,8 +13,8 @@ class Category(models.Model):
     verbose_name_plural = "Categories"
 
 STATUS_CHOICES = (
-  (0, "Draft"),
-  (1, "Published")
+  ("Draft", "Draft"),
+  ("Published", "Published")
 )
 
 class Blog(models.Model):
@@ -26,6 +26,9 @@ class Blog(models.Model):
   is_Featured = models.BooleanField(default=False)
   short_description = models.TextField(max_length=200)
   blog_body = models.TextField(max_length=1000)
-  status = models.IntegerField(choices=STATUS_CHOICES,default=0)
+  status = models.CharField(max_length=20, choices=STATUS_CHOICES,default="Draft")
   created_At = models.DateTimeField(auto_now_add=True)
   updated_At = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+    return self.title

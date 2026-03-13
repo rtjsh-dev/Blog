@@ -6,7 +6,7 @@ class CategoryAdmin(admin.ModelAdmin):
   ordering = ['id']
 
 class BlogAdmin(admin.ModelAdmin):
-  list_display = ['id', 'title', 'category', 'author', 'short_description','is_Featured']
+  list_display = ['id', 'title', 'category', 'author', 'status','is_Featured']
   prepopulated_fields = {'slug': ('title',)}
   ordering = ['id']
 
