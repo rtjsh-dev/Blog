@@ -6,8 +6,10 @@ from .models import Blog, Category
 def post_by_category(request, category_id):
   category = get_object_or_404(Category, pk=category_id)
   category_post = Blog.objects.filter(category=category, status="Published")
+  all_categories = Category.objects.all()
   context = {
-    "category": category,
+    "category": all_categories,
+    "current_category": category,
     "category_post": category_post,
   }
   return render(request, 'post_by_category.html', context)

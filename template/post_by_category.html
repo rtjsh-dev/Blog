@@ -1,114 +1,29 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Django Blogs</title>
+{% block content %}
 
-  <!-- Bootstrap -->
-  <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
-
-  <style>
-    body {
-      background: #f8f9fa;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .category-header {
-      margin: 40px 0;
-      text-align: center;
-    }
-
-    .category-header h1 {
-      font-weight: 700;
-      color: #ff9800;
-    }
-
-    .blog-card img {
-      height: 220px;
-      object-fit: cover;
-    }
-
-    .blog-card {
-      transition: 0.3s;
-      border: none;
-    }
-
-    .blog-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .blog-footer {
-      margin-top: 60px;
-      padding: 20px;
-      text-align: center;
-      background: #222;
-      color: white;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="container">
-
-    <!-- Category Title -->
-    <div class="category-header">
-      <h1>Category: {{ category.category_name }}</h1>
-      <p class="text-muted">{{ category_post.count }} item{{ category_post.count|pluralize }} in this category</p>
-    </div>
-
-    {% if category_post %}
-    <div class="row">
-
-      {% for post in category_post %}
-
-      <div class="col-md-6 col-lg-4 mb-4">
-
-        <div class="card blog-card">
-
-          <img src="{{post.featured_At.url}}" class="card-img-top" alt="{{post.title}}">
-
-          <div class="card-body">
-
-            <h4 class="card-title">{{post.title}}</h4>
-
-            <p class="card-text text-muted">
-              {{post.short_description|truncatewords:20}}
-            </p>
-
-            <a href="#" class="btn btn-warning btn-sm">Read More</a>
-
-          </div>
-
-        </div>
-
+<!-- Featured Posts -->
+<h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Category - {{ current_category }}</h3>
+<div class="row mb-2">
+  {% if category_post %}
+  {% for post in category_post %}
+  <div class="col-md-6">
+    <div class="card border-0">
+      <div class="card-body">
+        <h3></h3>
+        <small class="mb-1 text-muted">{{ post.created_At | timesince }} ago | {{ post.author }}</small>
+        <p class="card-text">{{ post.short_description | truncatewords:25 }}</p>
       </div>
-
-      {% endfor %}
-
     </div>
-    {% else %}
-    <div class="alert alert-info text-center" role="alert">
-      No published posts are available in this category yet.
-    </div>
-    {% endif %}
-
   </div>
+  {% endfor %}
+  {% else %}
+  <p>No posts found</p>
+  {% endif %}
 
-  <footer class="blog-footer">
-    <p>Django Blog built with ❤️ by <strong>Rajesh Thapa</strong></p>
-  </footer>
+</div>
 
-</body>
+</div>
 
-</html>
+{% endblock %}
