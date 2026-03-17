@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from Blog_app.models import Category,Blog
 from assignment.models import About
+from django.db.models import Q
 
 def home(request):
   try:
@@ -27,3 +28,14 @@ def blog(request, slug):
     "blog": single_post,
   }
   return render(request, 'Blogs.html', context)
+
+def search(request):
+  keyword = request.GET.get("keyword")
+  # print(keyword)
+  blog = Blog.objects.filter(Q(title__icontains=keyword) | Q(short_description__icontains=keyword)| Q(blog_body__icontains=keyword), status="Published")
+  # print(blog)
+  context  = {
+    "keyword": keyword,
+    "blog": blog,
+  }
+  return render(request, 'search.html', context)

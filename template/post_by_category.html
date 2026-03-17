@@ -14,6 +14,7 @@
         <h3>{{post.title}}</h3>
         <small class="mb-1 text-muted">{{ post.created_At | timesince }} ago | {{ post.author }}</small>
         <p class="card-text">{{ post.short_description | truncatewords:25 }}</p>
+        <p class="lead mb-0"><a href="{% url 'blog' post.slug %}" class="btn btn-sm btn-outline-primary">Continue reading</a></p>
       </div>
     </div>
   </div>
@@ -21,8 +22,6 @@
   {% else %}
   <p>No posts found</p>
   {% endif %}
-
-</div>
 
 </div>
 
