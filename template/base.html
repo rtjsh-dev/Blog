@@ -30,17 +30,17 @@
 
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
-        {% for cat in category %}
-        <a class="p-2 text-muted" href="#">{{cat.category_name}}</a>
+        {% for cat in categories %}
+        <a class="p-2 text-muted" href="{% url 'post_by_category' cat.id%}">{{cat.category_name}}</a>
         {% endfor %}
       </nav>
     </div>
 
-<!-- Main content  -->
-{% block content %}
+    <!-- Main content  -->
+    {% block content %}
 
-{% endblock %}
-<!-- Footer content  -->
+    {% endblock %}
+    <!-- Footer content  -->
     <footer class="blog-footer">
       <p>Django blog built with � by <a href="#">Rajesh Thapa</a></p>
     </footer>

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main role="main" class="container p-0 mt-5">
+  <article class="blog-post">
+    <div class="row mb-5">
+      <div class="col-md-8">
+        <!-- Featured Image -->
+        {% if blog.featured_At %}
+        <img src="{{ blog.featured_At.url }}" alt="{{ blog.title }}" class="img-fluid rounded mb-4"
+          style="height: 400px; object-fit: cover; width: 100%;">
+        {% endif %}
+
+        <!-- Post Header -->
+        <h1 class="display-5 fw-bold mb-3">{{ blog.title }}</h1>
+
+        <!-- Meta Information -->
+        <div class="mb-4 text-muted border-bottom pb-3">
+          <small>
+            <strong>By {{ blog.author.get_full_name|default:blog.author.username }}</strong> |
+            Published {{ blog.created_At|date:"b d, Y" }} |
+            <a href="{% url 'post_by_category' blog.category.id %}" class="text-decoration-none">
+              <span class="badge bg-primary">{{ blog.category.category_name }}</span>
+            </a>
+          </small>
+        </div>
+
+        <!-- Short Description -->
+        {% if blog.short_description %}
+        <p class="lead text-muted mb-4">{{ blog.short_description }}</p>
+        {% endif %}
+
+        <!-- Blog Body -->
+        <div class="blog-body">
+          {{ blog.blog_body|linebreaks }}
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-5 pt-4 border-top">
+          <p class="text-muted">
+            <small>
+              Last updated: {{ blog.updated_At|date:"b d, Y \a\t g:i A" }}
+            </small>
+          </p>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="col-md-4 blog-sidebar">
+        <div class="p-4 mb-3 bg-light rounded shadow-sm">
+          <h5 class="font-italic mb-3">About Author</h5>
+          <p class="mb-0">
+            <strong>{{ blog.author.get_full_name|default:blog.author.username }}</strong><br>
+            <small class="text-muted">{{ blog.author.email }}</small>
+          </p>
+        </div>
+
+        <div class="p-4 bg-white rounded shadow-sm mb-3">
+          <h5 class="font-italic">Post Information</h5>
+          <ul class="list-unstyled">
+            <li><strong>Status:</strong> <span class="badge bg-success">{{ blog.status }}</span></li>
+            <li><strong>Category:</strong> {{ blog.category.category_name }}</li>
+            <li><strong>Published:</strong> {{ blog.created_At|date:"b d, Y" }}</li>
+          </ul>
+        </div>
+
+        {% if blog.is_Featured %}
+        <div class="p-4 bg-warning bg-opacity-10 rounded shadow-sm">
+          <h5 class="text-warning">⭐ Featured Post</h5>
+          <small>This is a featured article on our blog.</small>
+        </div>
+        {% endif %}
+      </aside>
+    </div>
+  </article>
+</main>
+{% endblock %}

@@ -8,8 +8,11 @@ def post_by_category(request, category_id):
   category_post = Blog.objects.filter(category=category, status="Published")
   all_categories = Category.objects.all()
   context = {
-    "category": all_categories,
+    # "category": all_categories,
     "current_category": category,
     "category_post": category_post,
   }
   return render(request, 'post_by_category.html', context)
+
+
+ 

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!wk%c+csi=bv^q@1qtt+4y$aytjaha9^h=ii&*bt$2%s!bg*qt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Blog_app',
+    'assignment',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Blog_app.context_processors.getCategory',
+                'Blog_app.context_processors.getsocialLinks',
             ],
         },
     },
