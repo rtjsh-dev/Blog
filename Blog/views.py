@@ -1,5 +1,6 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from Blog_app.models import Category,Blog
+from Blog_app.models import Category,Blog, Comment
 from assignment.models import About
 from django.db.models import Q
 from .forms import UserRegistration
@@ -25,8 +26,22 @@ def home(request):
 
 def blog(request, slug):
   single_post = get_object_or_404(Blog , slug=slug, status="Published")
+  if request.method == 'POST':
+    comment = Comment()
+    comment.user = request.user
+    comment.blog = single_post
+    comment.comment = request.POST['comment']
+    comment.save()
+    return HttpResponseRedirect(request.path_info)
+  # Comments
+  comments = Comment.objects.filter(blog=single_post)
+  comment_count = comments.count()
+  # print(comments)
   context = {
     "blog": single_post,
+    'comments': comments,
+    'comment_count': comment_count,
+
   }
   return render(request, 'Blogs.html', context)
 

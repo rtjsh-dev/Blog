@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Blog
+from .models import Category, Blog, Comment
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
   list_display = ['id', 'category_name', 'created_At', 'updated_At']
@@ -13,3 +13,4 @@ class BlogAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(Comment)
